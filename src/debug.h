@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <bsp.h>
+#include "app.h"
 
 
 /* Provide C++ Compatibility */
@@ -207,6 +208,8 @@ void ohNoh(void);
 void writeIntTo1(uint8_t value);
 
 void writeIntTo2(uint8_t value);
+
+void UARTstringPLZ(const char *string);
     /* Provide C++ Compatibility */
 #ifdef __cplusplus
 }

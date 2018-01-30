@@ -89,7 +89,7 @@ typedef enum
 {
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
-	APP_STATE_LOOP,
+	APP_STATE_LOOP=1,
 
 	/* TODO: Define states used by the application state machine. */
 

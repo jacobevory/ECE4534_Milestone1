@@ -354,7 +354,7 @@
       <Template dnOrder="22">
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">961F775203794AE57A190AC6CD483D17</Checksum>
+        <Checksum dnOrder="2">6FA220688E56B267750204C1F1DACB3E</Checksum>
       </Template>
       <Template dnOrder="23">
         <Name dnOrder="0">sys_devcon_pic32mx.c</Name>
