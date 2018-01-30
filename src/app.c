@@ -157,7 +157,7 @@ void APP_Tasks ( void )
                 }*/
             while(true){
                 //dbgUARTVal('a');
-                dbgOutputVal(127);
+                //dbgOutputVal(127);
                 //writeIntTo1(255);
                 //writeIntTo2(255);
             }
