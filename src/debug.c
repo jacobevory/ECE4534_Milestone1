@@ -13,21 +13,13 @@ uint8_t transmitVal1 = 0;
 void dbgOutputVal(uint32_t outVal){
     if (outVal < 0 || outVal > 127) transmitVal = 127;
     else transmitVal = (outVal  + (toggleVal * 128));
-    writeIntTo2((uint8_t)transmitVal);
+    writeIntTo1((uint8_t)transmitVal);
     if(!toggleVal) toggleVal = true;
     else if (toggleVal) toggleVal = false;
 }
 
 void dbgUARTVal(unsigned char outVal){
-    int track = 0;
-    while(track<1){
-        if (!DRV_USART0_TransmitBufferIsFull()){
-            DRV_USART0_WriteByte(outVal);
-            track++;
-        }
-    }
-    DRV_USART0_WriteByte('\r');
-    DRV_USART0_WriteByte('\n');
+        if (!DRV_USART0_TransmitBufferIsFull()) DRV_USART0_WriteByte(outVal);
 }
 
 void dbgOutputLoc(uint32_t outVal){

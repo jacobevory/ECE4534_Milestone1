@@ -141,7 +141,10 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            DRV_TMR0_Start();
             PLIB_USART_Enable(USART_ID_1);
+            //DRV_ADC_Start();
+            //DRV_ADC_Open();
             appData.state = APP_STATE_LOOP;
             break;
         }
@@ -155,11 +158,13 @@ void APP_Tasks ( void )
                     stringPointer = string1;
                     return true;
                 }*/
+            
+                //writeIntTo1(255);
+                //writeIntTo2(255);
             while(true){
                 //dbgUARTVal('a');
                 //dbgOutputVal(127);
-                //writeIntTo1(255);
-                //writeIntTo2(255);
+                //dbgOutputLoc(LOC_127);
             }
             break;
             }
