@@ -61,6 +61,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system/common/sys_common.h"
 #include "app.h"
+#include "debug.h"
 #include "system_definitions.h"
 
 // *****************************************************************************
@@ -74,27 +75,21 @@ void IntHandlerDrvUsartInstance0(void)
     DRV_USART_TasksError(sysObj.drvUsart0);
     DRV_USART_TasksReceive(sysObj.drvUsart0);
 }
-
- 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
  
 void IntHandlerDrvAdc(void)
 {
    /* Clear ADC Interrupt Flag */
-    
-    APP_ADC_Average();
-    
    PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_1);
+  // APP_ADC_Average();
+   if (appData.adcIndex < 4){
+    appData.adcVal = PLIB_ADC_ResultGetByIndex(ADC_ID_1, appData.adcIndex);
+    //dbgOutputLoc(4);
+    sensorq_send(appData.adcVal); 
+    //dbgOutputLoc(5);
+    appData.adcIndex++;
+   }
+   
+   
 }
  
 

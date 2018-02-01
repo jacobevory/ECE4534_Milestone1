@@ -76,7 +76,7 @@ void writeIntTo2(uint8_t value){
 void UARTstringPLZ(const char *string){
     const char *stringPointer;
     stringPointer = string;
-    while(PLIB_USART_TransmitterIsEmpty(USART_ID_1)){
+    while(*stringPointer != '\0'){
                 PLIB_USART_TransmitterByteSend(USART_ID_1, *stringPointer);
                 stringPointer++;
                 if(*stringPointer == '\0'){
