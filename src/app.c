@@ -143,8 +143,8 @@ void APP_Tasks ( void )
         {
             DRV_TMR0_Start();
             PLIB_USART_Enable(USART_ID_1);
-            //DRV_ADC_Start();
-            //DRV_ADC_Open();
+            appData.ADCRdy = false;
+            DRV_ADC_Open();
             appData.state = APP_STATE_LOOP;
             break;
         }
@@ -163,7 +163,7 @@ void APP_Tasks ( void )
                 //writeIntTo2(255);
             while(true){
                 //dbgUARTVal('a');
-                //dbgOutputVal(127);
+                
                 //dbgOutputLoc(LOC_127);
             }
             break;
@@ -182,6 +182,27 @@ void APP_Tasks ( void )
 }
 
  
+void APP_ADC_Average ( void )
+{
+    int i;
+ 
+    appData.ADCRdy = true;
+    appData.sensorVal = 0;
+    /* Must read results before clearing persistent interrupt flag. */
+    for (i=0; i < ADC_NUM_SAMPLE_PER_AVERAGE; i++)
+    {
+        appData.sensorVal += PLIB_ADC_ResultGetByIndex(ADC_ID_1, i);
+    }
+ 
+    appData.sensorVal = appData.sensorVal / ADC_NUM_SAMPLE_PER_AVERAGE ;
+    dbgOutputVal(appData.sensorVal/(float)1024*(float)128);
+    /* If the "Stop Conversion on the First ADC Interrupt?" box in MHC is checked,
+       the Hardware will disable auto-sampling when the interrupt condition
+       occurs (after obtaining the 16th result). Auto-sampling needs to be
+       re-enabled every ADC interrupt. */
+    PLIB_ADC_SampleAutoStartEnable(ADC_ID_1); 
+}
+
 
 /*******************************************************************************
  End of File

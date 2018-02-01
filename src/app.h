@@ -90,6 +90,8 @@ typedef enum
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
 	APP_STATE_LOOP=1,
+    APP_STATE_ADC=2,
+            
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -113,9 +115,12 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
-
+    
+    
     /* TODO: Define any additional data used by the application. */
-
+    float sensorVal;
+    bool ADCRdy;
+    
 } APP_DATA;
 
 

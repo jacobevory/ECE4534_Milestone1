@@ -75,7 +75,31 @@ void IntHandlerDrvUsartInstance0(void)
     DRV_USART_TasksReceive(sysObj.drvUsart0);
 }
 
-void IntHandlerDrvTmrInstance0(void){
+ 
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ 
+void IntHandlerDrvAdc(void)
+{
+   /* Clear ADC Interrupt Flag */
+    
+    APP_ADC_Average();
+    
+   PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_ADC_1);
+}
+ 
+
+void IntHandlerDrvTmrInstance0(void)
+{
 PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
 dbgUARTVal('t');
 }

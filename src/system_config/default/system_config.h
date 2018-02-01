@@ -235,6 +235,7 @@ extern "C" {
 
 /*** Application Instance 0 Configuration ***/
 
+#define ADC_NUM_SAMPLE_PER_AVERAGE 4
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
