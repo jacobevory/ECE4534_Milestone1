@@ -184,7 +184,9 @@ void APP_Tasks ( void ){
             appData.sensorVal += appData.sensorRead;
             dbgOutputVal(appData.sensorRead);
             appData.sensorVal = appData.sensorVal / ADC_NUM_SAMPLE_PER_AVERAGE;
-            dbgUARTVal('d');
+            dbgUARTVal(appData.sensorVal);
+            dbgUARTVal('c');
+            dbgUARTVal('m');
             PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
             appData.adcIndex = 0;
             appData.state = APP_STATE_FIRST;
