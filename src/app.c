@@ -133,73 +133,73 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */int i = 0;
 void APP_Tasks ( void ){
-    switch (appData.state) {
-        case APP_STATE_INIT:
-        {
-            DRV_TMR0_Start();
-            PLIB_USART_Enable(USART_ID_1);
-            appData.ADCRdy = false;
-            DRV_ADC_Open();
-            sensorq_create();
-            dbgOutputVal(appData.sensorRead);
-            appData.adcIndex = 0;
-            PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
-            appData.state = APP_STATE_FIRST;
-            break;
-        }
-        case APP_STATE_FIRST:
-        {
-            i++;
-            if(i > 127) i = 0;
-            appData.sensorVal = 0;
-            appData.sensorRead = sensorq_receive()*128/1024;
-            dbgOutputLoc(i);
-            appData.sensorVal += appData.sensorRead;
-            dbgOutputVal(appData.sensorRead);
-            appData.state = APP_STATE_SECOND;
-            break;
-        }
-        case APP_STATE_SECOND:
-        {
-            appData.sensorRead = sensorq_receive()*128/1024;
-            //dbgOutputLoc(LOC_2);
-            appData.sensorVal += appData.sensorRead;
-            dbgOutputVal(appData.sensorRead);
-            appData.state = APP_STATE_THIRD; 
-            break;
-        }
-        case APP_STATE_THIRD:
-        {
-            appData.sensorRead = sensorq_receive()*128/1024;
-            //dbgOutputLoc(LOC_3);
-            appData.sensorVal += appData.sensorRead;
-            dbgOutputVal(appData.sensorRead);
-            appData.state = APP_STATE_FOURTH; 
-            break;
-        }
-        case APP_STATE_FOURTH:
-        {
-            appData.sensorRead = sensorq_receive()*128/1024;
-            //dbgOutputLoc(LOC_4);
-            appData.sensorVal += appData.sensorRead;
-            dbgOutputVal(appData.sensorRead);
-            appData.sensorVal = appData.sensorVal / ADC_NUM_SAMPLE_PER_AVERAGE;
-            dbgUARTVal(appData.sensorVal);
-            dbgUARTVal('c');
-            dbgUARTVal('m');
-            PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
-            appData.adcIndex = 0;
-            appData.state = APP_STATE_FIRST;
-            break;
-        }
-        default:
-        {
-            dbgUARTVal('d');
-            ohNoh();
-            break;
+    while(1){
+        switch (appData.state) {
+            case APP_STATE_INIT:
+            {
+                DRV_TMR0_Start();
+                PLIB_USART_Enable(USART_ID_1);
+                appData.ADCRdy = false;
+                DRV_ADC_Open();
+                sensorq_create();
+                dbgOutputVal(appData.sensorRead);
+                appData.adcIndex = 0;
+                PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
+                appData.state = APP_STATE_FIRST;
+                break;
+            }
+            case APP_STATE_FIRST:
+            {
+                i++;
+                if(i > 127) i = 0;
+                appData.sensorVal = 0;
+                appData.sensorRead = sensorq_receive()*128/1024;
+                dbgOutputLoc(i);
+                appData.sensorVal += appData.sensorRead;
+                dbgOutputVal(appData.sensorRead);
+                appData.state = APP_STATE_SECOND;
+                break;
+            }
+            case APP_STATE_SECOND:
+            {
+                appData.sensorRead = sensorq_receive()*128/1024;
+                //dbgOutputLoc(LOC_2);
+                appData.sensorVal += appData.sensorRead;
+                dbgOutputVal(appData.sensorRead);
+                appData.state = APP_STATE_THIRD; 
+                break;
+            }
+            case APP_STATE_THIRD:
+            {
+                appData.sensorRead = sensorq_receive()*128/1024;
+                //dbgOutputLoc(LOC_3);
+                appData.sensorVal += appData.sensorRead;
+                dbgOutputVal(appData.sensorRead);
+                appData.state = APP_STATE_FOURTH; 
+                break;
+            }
+            case APP_STATE_FOURTH:
+            {
+                appData.sensorRead = sensorq_receive()*128/1024;
+                //dbgOutputLoc(LOC_4);
+                appData.sensorVal += appData.sensorRead;
+                dbgOutputVal(appData.sensorRead);
+                appData.sensorVal = appData.sensorVal / ADC_NUM_SAMPLE_PER_AVERAGE;
+                dbgUARTVal(appData.sensorVal);
+                dbgUARTVal('c');
+                dbgUARTVal('m');
+                appData.adcIndex = 0;
+                PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
+                appData.state = APP_STATE_FIRST;
+                break;
+            }
+            default:
+            {
+                ohNoh();
+                break;
+            }
         }
     }
-    dbgUARTVal('p');
 }
 
  

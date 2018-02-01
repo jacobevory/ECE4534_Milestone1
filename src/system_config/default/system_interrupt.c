@@ -96,7 +96,7 @@ void IntHandlerDrvAdc(void)
 void IntHandlerDrvTmrInstance0(void)
 {
 PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
-dbgUARTVal('t');
+//dbgUARTVal('t');
 }
  /*******************************************************************************
  End of File
